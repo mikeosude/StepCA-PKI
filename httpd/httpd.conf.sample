@@ -1,0 +1,9 @@
+<VirtualHost *:443>
+  ServerName <HOSTNAME>
+  SSLEngine on
+  SSLCertificateFile /etc/ssl/<SERVICE>.crt
+  SSLCertificateKeyFile /etc/ssl/<SERVICE>.key
+
+  ProxyPass / http://127.0.0.1:8080/
+  ProxyPassReverse / http://127.0.0.1:8080/
+</VirtualHost>

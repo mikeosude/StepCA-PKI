@@ -1,0 +1,30 @@
+[global_tags]
+  app = "stepCA"
+  env = "prod"
+
+[agent]
+  interval            = "10s"
+  round_interval      = true
+  metric_batch_size   = 2000
+  metric_buffer_limit = 50000
+  collection_jitter   = "2s"
+  flush_interval      = "10s"
+  flush_jitter        = "2s"
+  precision           = "1s"
+
+[[outputs.http]]
+  url         = "http://<VICTORIAMETRICS_HOST>:8428/api/v1/write"
+  data_format = "prometheusremotewrite"
+  content_encoding = "snappy"
+  [outputs.http.headers]
+    Content-Type = "application/x-protobuf"
+    Content-Encoding = "snappy"
+    X-Prometheus-Remote-Write-Version = "0.1.0"
+
+[[outputs.loki]]
+  domain       = "http://<LOKI_HOST>:3100"
+  endpoint     = "/loki/api/v1/push"
+  timeout      = "10s"
+  gzip_request = true
+  http_headers = { "X-Scope-OrgID" = "1" }
+  namepass     = ["tail", "syslog", "logparser", "log", "logfile"]

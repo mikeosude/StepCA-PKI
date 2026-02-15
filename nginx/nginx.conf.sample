@@ -1,0 +1,11 @@
+server {
+  listen 443 ssl;
+  server_name <HOSTNAME>;
+
+  ssl_certificate     /etc/ssl/<SERVICE>.crt;
+  ssl_certificate_key /etc/ssl/<SERVICE>.key;
+
+  location / {
+    proxy_pass http://127.0.0.1:8080;
+  }
+}

@@ -1,0 +1,17 @@
+[[inputs.tail]]
+  files = [
+    "/var/log/stepca/step-ca.log",
+    "/var/log/stepca/step-ca.err",
+    "/var/log/messages",
+    "/var/log/secure",
+    "/var/log/audit/audit.log",
+    "/var/log/cron",
+    "/var/log/boot.log",
+    "/var/log/dnf.log"
+  ]
+  from_beginning = false
+  watch_method = "inotify"
+  name_override = "logfile"
+  data_format = "grok"
+  grok_patterns = ["%{GREEDYDATA:message}"]
+  tags = { service = "stepca", host_role = "ca" }

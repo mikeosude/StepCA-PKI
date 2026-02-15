@@ -1,0 +1,10 @@
+{
+  acme_ca <CA_URL>/acme/acme/directory
+}
+
+<HOSTNAME> {
+  tls {
+    ca <CA_URL>/acme/acme/directory
+  }
+  reverse_proxy 127.0.0.1:8080
+}

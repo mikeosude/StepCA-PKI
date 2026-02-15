@@ -1,0 +1,19 @@
+#!/bin/sh
+set -euo pipefail
+
+CA_DIR="<CA_URL>/acme/acme/directory"
+DOMAIN="<HOSTNAME>"
+CERT_DIR="/etc/ssl"
+
+# Request cert via ACME (standalone). Requires port 80 reachable.
+certbot certonly --standalone \
+  --server "${CA_DIR}" \
+  -d "${DOMAIN}" \
+  --agree-tos --register-unsafely-without-email
+
+# Copy to /etc/ssl
+install -m 0644 "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" "${CERT_DIR}/${DOMAIN}.crt"
+install -m 0600 "/etc/letsencrypt/live/${DOMAIN}/privkey.pem" "${CERT_DIR}/${DOMAIN}.key"
+
+# Reload nginx
+systemctl reload nginx

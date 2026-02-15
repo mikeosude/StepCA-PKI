@@ -1,0 +1,21 @@
+[Unit]
+Description=step-ca
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=STEPPATH=/etc/step-ca
+EnvironmentFile=-/etc/step-ca/step-ca.env
+WorkingDirectory=/etc/step-ca
+ExecStart=/usr/bin/step-ca /etc/step-ca/config/ca.json --password-file /etc/step-ca/password.txt
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+StandardOutput=append:/var/log/stepca/step-ca.log
+StandardError=append:/var/log/stepca/step-ca.err
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,44 @@
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = true
+
+[[inputs.mem]]
+
+[[inputs.disk]]
+  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "efivarfs"]
+
+[[inputs.net]]
+  interfaces = ["eth*"]
+
+[[inputs.system]]
+
+[[inputs.ethtool]]
+  interface_include = ["eth*"]
+
+[[inputs.kernel]]
+
+[[inputs.processes]]
+
+[[inputs.swap]]
+
+[[inputs.netstat]]
+
+[[inputs.diskio]]
+  skip_serial_number = true
+  devices = ["sd*"]
+
+[[inputs.slab]]
+
+[[inputs.systemd_units]]
+  pattern = "step*"
+  unittype = "service"
+  scope = "system"
+  collect_disabled_units = false
+  details = true
+  timeout = "5s"
+
+[[inputs.procstat]]
+  pattern = "stepca"
+  user = "root"

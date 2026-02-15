@@ -1,0 +1,8 @@
+[Unit]
+Description=Step CA certificate renewal
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/step ca renew --force /etc/ssl/<SERVICE>.crt /etc/ssl/<SERVICE>.key
